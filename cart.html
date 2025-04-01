@@ -1,0 +1,107 @@
+// A simple shopping website layout with JavaScript functionality and checkout
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Shopping Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        button {
+            padding: 5px 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #cart {
+            margin-top: 20px;
+        }
+        #checkout-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Simple Shopping Site</h2>
+        <div class="product">
+            <span>Product 1 - $10</span>
+            <button onclick="addToCart('Product 1', 10)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <span>Product 2 - $15</span>
+            <button onclick="addToCart('Product 2', 15)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <span>Product 3 - $20</span>
+            <button onclick="addToCart('Product 3', 20)">Add to Cart</button>
+        </div>
+        <h3>Shopping Cart</h3>
+        <ul id="cart"></ul>
+        <h4>Total: $<span id="total">0</span></h4>
+        <button id="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+    
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            total += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartElement = document.getElementById('cart');
+            const totalElement = document.getElementById('total');
+            cartElement.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - $${item.price}`;
+                cartElement.appendChild(li);
+            });
+            totalElement.textContent = total;
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty! Add some products first.");
+                return;
+            }
+            alert(`Thank you for your purchase! Total: $${total}`);
+            cart = [];
+            total = 0;
+            updateCart();
+        }
+    </script>
+</body>
+</html>
